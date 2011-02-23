@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>
+<html>
+<head>
+<title>Benchmarking Go and Python Web servers</title>
+<meta http-equiv='Content-type' content='text/html; charset=utf-8'>
+<style type='text/css' media='all'>
+body {
+  font-family: "Bitstream Vera Sans", Verdana, sans-serif;
+  font-size: 13px;
+  line-height: 1.23em;
+  padding: 0;
+  margin: 1.23em;
+  background: white;
+  color: black;
+}
+em {
+  font-style: italic;
+  color: #034;
+}
+a {
+  color: #04a;
+  text-decoration: none;
+  font-style: italic;
+}
+a:hover {
+  color: #a40;
+  text-decoration: underline;
+}
+a:active {
+  color: #c00;
+}
+code, pre {
+  font-size: 13px; 
+}
+pre {
+  background: #F0F0F0;
+  padding: 0.5em 2em;
+}
+</style>
+</head>
+<body>
+<h3>Benchmarking Go and Python Web servers</h3>
+
+<p>To build the Web applications I use mostly
+<a href='http://www.python.org/'>Python</a>. An year ago I started
+learning <a href='http://golang.org/'>Go</a>, mainly for fun. In the meantime it
+turned out that I have to rewrite some old CGI application written in C, which
+have worked with <a href='http://www.acme.com/software/thttpd/'>thttpd</a>
+server in <a href='http://en.wikipedia.org/wiki/Chroot'>chroot</a> mode. I
+started searching for a tool with which, I could write a standalone web
+application with embedded web server, easy to chroot. At the same time I started
+play with <a href='http://www.getwebgo.com'>web.go</a> framework,
+<a href='https://github.com/hoisie/mustache.go'>mustache.go</a>
+templates, Go native <a href='http://golang.org/pkg/http/'>http</a> package and
+<a href='https://github.com/Philio/GoMySQL'>GoMySQL</a> database API. I found
+that Go with <em>http</em>, <em>mustache.go</em> and <em>GoMySQL</em> packages
+would be an ideal tools to do my job. So I decided to try write my application
+in Go.</p>
+
+<p>During work it appeared that I need something more flexible than
+<em>mustache.go</em> and something more mature and bug-free than
+<em>GoMySQL</em>. Finally, I wrote my application using
+<a href='https://github.com/ziutek/kasia.go'>Kasia.go</a> templates and 
+<a href='https://github.com/ziutek/mymysql'>MyMySQL</a> (I wrote these packages
+specifically for my application but decided to make it available for Go
+community). Rewritten application works very well even under much greater load
+than the previous one. I began to wonder about how faster (or maybe slower) is
+Go than Python for implementing standalone Web applications. I decided to do
+several tests, taking into account the use of different frameworks and servers.
+For comparison, I picked up following Go packages:</p>
+
+<ul>
+    <li>raw Go <em>http</em> package,</li>
+    <li><em>web.go</em> framework (it uses <em>http</em> package to run in
+    standalone mode),</li>
+    <li><a href='http://garyburd.github.com/twister/'>twister</a> framework (it
+    also uses <em>http</em> package),
+</ul>
+
+<p>and following Python Web servers/frameworks:</p>
+
+<ul>
+    <li><a hrfe='http://webpy.org/'>web.py</a> framework with
+    <a href='http://www.cherrypy.org'>CherryPy</a> WSGI server,</li>
+    <li><a href='http://www.tornadoweb.org/'>tornado</a> asynchronous
+    server/framework.</li>
+</ul>
+
+<p>For each case I wrote a simple application, slightly more complicated that
+typical <em>Hello World</em> example. Any application consist of:</p>
+
+<ul>
+    <li>parsing parameters in URL path using regular expressions,</li>
+    <li>using <em>for</em> statement to create multiple line output,</li>
+    <li>using <em>printf</em>-like formatting function/expression to format
+    output.<li>
+</ul>
+
+<p>I think that these operations are common in any Web application, so should be
+included in any simple benchmark test. Below I put links to the source code for
+all test applications:</p>
+
+<ul>
+<li>
+<a href='https://github.com/ziutek/web_bench/blob/master/http.go'>Go http</a>
+</li>
+<li>
+<a href='https://github.com/ziutek/web_bench/blob/master/webgo.go'>web.go</a>
+</li>
+<li>
+<a href='https://github.com/ziutek/web_bench/blob/master/twister.go'>twister</a>
+</li>
+<li>
+<a href='https://github.com/ziutek/web_bench/blob/master/webpy.py'>web.py</a>
+</li>
+<li>
+<a href='https://github.com/ziutek/web_bench/blob/master/trnado.py'>tornado</a>
+</li>
+</ul>
+
+<h4>Testing environment</h4>
+
+<p>The test environment consisted of two PCs (traffic generator and application
+server) connected using FastEthernet.</p>
+
+<ul>
+    <li><em>Generator</em>: 2 x Xeon 2.6 GHz with hyperthreading, Debian SID,
+    kernel: 2.6.33.7.2-rt30-1-686 #1 SMP PREEMPT RT;</li>
+    <li><em>Server</em>: MSI Netbook with two core Intel U4100 1.30GHz, AC power
+    connected, 64-bit Ubuntu 10.10, kernel: 2.6.35-25-generic #44-Ubuntu SMP;
+    </li>
+</ul>
+
+<p>To generate HTTP traffic and measure the performance of any test application
+I used <a href='http://www.joedog.org/index/siege-home'>siege</a>
+benchmarking utility. Siege can simulate multiple users using multiple threads.
+I use the following command to generate traffic <em>siege</em>:
+<pre>siege -c 200 -t 30s http://SERVER_ADDR:8080/Hello/100</pre>
+It simulates traffic generated by 200 users and works for 30s. With given URL
+Web application produces 100 lines output.
+
+</body>
+</html>
