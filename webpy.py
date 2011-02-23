@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-import sys
+from sys import argv
 import web
-from web.wsgiserver import CherryPyWSGIServer
 
 class ServeHTTP(object):
     def GET(self, txt, num):
@@ -16,11 +15,20 @@ class ServeHTTP(object):
 web.config.debug = False
 urls = ("^/([^/]+)/([^/]+)$", "ServeHTTP")
 app = web.application(urls, globals())
-server = CherryPyWSGIServer(("0.0.0.0", int(sys.argv[1])), app.wsgifunc(),
-                            request_queue_size=20)
 
 if __name__ == "__main__":
-    try:
-        server.start()
-    except KeyboardInterrupt:
-        server.stop()
+    if len(argv) > 1 :
+        from web.wsgiserver import CherryPyWSGIServer
+        server = CherryPyWSGIServer(("0.0.0.0", int(argv[1])),
+                                    app.wsgifunc(), request_queue_size=20)
+        try:
+            server.start()
+        except KeyboardInterrupt:
+            server.stop()
+    else:
+        from flup.server.fcgi import WSGIServer
+        server = WSGIServer(app.wsgifunc(), bindAddress=None,
+                            multiplexed=False, multithreaded=False)
+        server.run()
+        #web.wsgi.runwsgi = lambda func, addr=None: web.wsgi.runfcgi(func, addr)
+        #app.run()
