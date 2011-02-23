@@ -71,15 +71,15 @@ learning <a href='http://golang.org/'>Go</a>, mainly for fun. In the meantime it
 turned out that I have to rewrite some old CGI application written in C, which
 have worked with <a href='http://www.acme.com/software/thttpd/'>thttpd</a>
 server in <a href='http://en.wikipedia.org/wiki/Chroot'>chroot</a> mode. I
-started searching for a tool with which, I could write a standalone web
+started searching for a tool with which I could write a standalone web
 application with embedded web server, easy to chroot. At the same time I started
 play with <a href='http://www.getwebgo.com'>web.go</a> framework,
 <a href='https://github.com/hoisie/mustache.go'>mustache.go</a>
 templates, Go native <a href='http://golang.org/pkg/http/'>http</a> package and
 <a href='https://github.com/Philio/GoMySQL'>GoMySQL</a> database API. I found
-that Go with <em>http</em>, <em>mustache.go</em> and <em>GoMySQL</em> packages
-would be an ideal tools to do my job. So I decided to try write my application
-in Go.</p>
+that the Go with <em>http</em>, <em>mustache.go</em> and <em>GoMySQL</em>
+packages would be an ideal tools to do my job. So I decided to try write my
+application in Go.</p>
 
 <p>During work it appeared that I need something more flexible than
 <em>mustache.go</em> and something more mature and bug-free than
@@ -246,14 +246,15 @@ compiled using Go release.2011-02-01.1</p>
     </tr>
 </table>
 
-<h4>Conclusion</h4>
+<h3>Conclusion</h3>
 
 <p>As you can see Go implementations of Web application wins in almost all test
 cases. Worse results of <em>web.go</em> framework is probably due to the fact
-that it try find static file for given URL before run handler function. It
-surprised me very high performance of <em>tornado</em> Python framework,
+that it try find static file for given URL before run a handler function. It
+surprised me the very high performance of <em>tornado</em> Python framework,
 especially in relation to <em>web.py</em> framework running on to of
-<em>CherryPy</em> server.</p> 
+<em>CherryPy</em> server (I use <em>web.py</em> for almost all my Python Web
+applications).</p> 
 <p>You can see how good job gorutines do. Probably, there is no reason to write
 <a href='http://en.wikipedia.org/wiki/Epoll'>epoll</a> based asynchronous Web
 server in Go (but it would be interesting to prove this thesis).</p>
