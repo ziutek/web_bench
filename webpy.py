@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import sys
 import web
 from web.wsgiserver import CherryPyWSGIServer
 
@@ -15,7 +16,7 @@ class ServeHTTP(object):
 web.config.debug = False
 urls = ("^/([^/]+)/([^/]+)$", "ServeHTTP")
 app = web.application(urls, globals())
-server = CherryPyWSGIServer(("0.0.0.0", 8080), app.wsgifunc(),
+server = CherryPyWSGIServer(("0.0.0.0", int(sys.argv[1])), app.wsgifunc(),
                             request_queue_size=20)
 
 if __name__ == "__main__":

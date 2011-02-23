@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import sys
 import tornado.httpserver
 import tornado.ioloop
 import tornado.web
@@ -16,5 +17,5 @@ app = tornado.web.Application(urls)
 
 if __name__ == "__main__":
     server = tornado.httpserver.HTTPServer(app)
-    server.listen(8080)
+    server.listen(int(sys.argv[1]))
     tornado.ioloop.IOLoop.instance().start()
