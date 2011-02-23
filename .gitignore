@@ -1,4 +1,4 @@
-*.py~
+*~
 *.pyc
 .*.swp
 *.6
@@ -7,6 +7,5 @@
 *.o
 *.so
 *.out
-*.go~
 _obj
 _testmain.go
