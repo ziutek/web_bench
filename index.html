@@ -107,8 +107,14 @@ packages:</p>
 <ul>
     <li><a href='http://webpy.org/'>web.py</a> framework with
     <a href='http://www.cherrypy.org'>CherryPy</a> WSGI server,</li>
+    <li><em>web.py</em> framework using
+    <a href='http://trac.saddi.com/flup'>flup</a>
+    <a href='http://en.wikipedia.org/wiki/FastCGI'>FastCGI</a> to be a
+    backend process for <a href='http://wiki.nginx.org/Main'>nginx</a> server,
+    </li>
     <li><a href='http://www.tornadoweb.org/'>tornado</a> asynchronous
-    server/framework.</li>
+    server/framework,</li>
+    <li><em>tornado</em> with <em>nginx</em> as a load balancer.
 </ul>
 
 <p>For each case I wrote a simple application, slightly more complicated that
@@ -192,8 +198,16 @@ compiled using Go release.2011-02-01.1</p>
         <td><div style='background: #ed0; width: 88px'></div></td>
     </tr>
     <tr>
-        <td>Web.py</td><td>169</td>
-        <td><div style='background: #0dd; width: 17px'></div></td>
+        <td>Tornado+nginx</td><td>862</td>
+        <td><div style='background: #dd0; width: 86px'></div></td>
+    </tr>
+    <tr>
+        <td>Web.py+CheryPy</td><td>169</td>
+        <td><div style='background: #0dc; width: 17px'></div></td>
+    </tr>
+    <tr>
+        <td>Web.py+nginx</td><td>114</td>
+        <td><div style='background: #0de; width: 11px'></div></td>
     </tr>
 </table>
 
@@ -218,8 +232,16 @@ compiled using Go release.2011-02-01.1</p>
         <td><div style='background: #00e; width: 152px'></div></td>
     </tr>
     <tr>
-        <td>Web.py</td><td>308</td>
-        <td><div style='background: #0dd; width: 31px'></div></td>
+        <td>Tornado+nginx</td><td>1378</td>
+        <td><div style='background: #dd0; width: 138px'></div></td>
+    </tr>
+    <tr>
+        <td>Web.py+CheryPy</td><td>308</td>
+        <td><div style='background: #0dc; width: 31px'></div></td>
+    </tr>
+    <tr>
+        <td>Web.py+nginx</td><td>198</td>
+        <td><div style='background: #0de; width: 20px'></div></td>
     </tr>
 </table>
 
@@ -244,21 +266,42 @@ compiled using Go release.2011-02-01.1</p>
         <td><div style='background: #ed0; width: 166px'></div></td>
     </tr>
     <tr>
-        <td>Web.py</td><td>304</td>
-        <td><div style='background: #0dd; width: 30px'></div></td>
+        <td>Tornado+nginx</td><td>1364</td>
+        <td><div style='background: #dd0; width: 136px'></div></td>
+    </tr>
+    <tr>
+        <td>Web.py+CheryPy</td><td>304</td>
+        <td><div style='background: #0dc; width: 30px'></div></td>
+    </tr>
+    <tr>
+        <td>Web.py+nginx</td><td>211</td>
+        <td><div style='background: #0de; width: 19px'></div></td>
     </tr>
 </table>
 
+<p><em>Web.py+nginx</em> has worked with <em>flup</em> <em>FastCGI</em>
+options: <em>multiplexed=False</em>, <em>multithreaded=False</em>.
+If <em>multiplexed=True</em> it has worked slightly slower.
+If <em>multithreaded=True</em> and there was only one process running the
+<em>nginx</em> server has reported following errors:<p>
+
+<pre>[error] 18166#0: *66139 connect() to
+unix:/home/michal/Programowanie/web_bench/socket failed (11: Resource
+temporarily unavailable) while connecting to upstream</pre>
+
+<p>Multiple <em>FastCGI</em> processes were spawned using
+<a href='http://redmine.lighttpd.net/projects/spawn-fcgi/wiki'>spawn-fcgi</a>.
+
 <h3>Conclusion</h3>
 
-<p>As you can see Go implementations of Web application wins in almost all test
-cases. Worse results of <em>web.go</em> framework is probably due to the fact
-that it try find static file for given URL before run a handler function. It
-surprised me the very high performance of <em>tornado</em> Python framework,
-especially in relation to <em>web.py</em> framework running on
-<em>CherryPy</em> server (I use <em>web.py</em> for almost all my Python Web
-applications but in <a href='http://en.wikipedia.org/wiki/FastCGI'>FastCGI</a>
-mode).</p> 
+<p>As you can see Go wins in almost all test cases. Worse results of
+<em>web.go</em> framework is probably due to the fact that it try find static
+file for given URL before run a handler function. It surprised me the very high
+performance of <em>tornado</em> Python framework, especially in relation to
+<em>web.py</em> framework. I was also surprised, that <em>CherryPy</em> server
+is faster than <em>nginx</em>+<em>flup</em> (I use
+<em>web.py</em>+<em>flup</em>+<em>nginx</em> for almost all my Python Web
+applications).</p> 
 
 </body>
 </html>
