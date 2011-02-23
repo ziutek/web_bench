@@ -1,1 +1,1 @@
-See my [report](http://ziutek.github.com/web_bench)
+See [small article](http://ziutek.github.com/web_bench).
