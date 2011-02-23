@@ -207,10 +207,56 @@ compiled using Go release.2011-02-01.1</p>
         <td><div style='background: #d00; width: 175px'></div></td>
     </tr>
     <tr>
+        <td>Tornado</td><td>1682</td>
+        <td><div style='background: #ed0; width: 168px'></div></td>
+    </tr>
+    <tr>
         <td>Web.go</td><td>1516</td>
         <td><div style='background: #00e; width: 152px'></div></td>
     </tr>
-
+    <tr>
+        <td>Web.py</td><td>308</td>
+        <td><div style='background: #0dd; width: 31px'></div></td>
+    </tr>
 </table>
+
+<p>GOMAXPROCS=4, four Python processes working simultaneously:</p>
+
+<table>
+    <tr><th>Framework</th><th colspan='2'>Transaction rate [1/sec]</th></tr>
+    <tr>
+        <td>Go http</td><td>2063</td>
+        <td><div style='background: #0b0; width: 206px'></div></td>
+    </tr>
+    <tr>
+        <td>Twister</td><td>2020</td>
+        <td><div style='background: #d00; width: 202px'></div></td>
+    </tr>
+    <tr>
+        <td>Web.go</td><td>1753</td>
+        <td><div style='background: #00e; width: 175px'></div></td>
+    </tr>
+    <tr>
+        <td>Tornado</td><td>1662</td>
+        <td><div style='background: #ed0; width: 166px'></div></td>
+    </tr>
+    <tr>
+        <td>Web.py</td><td>304</td>
+        <td><div style='background: #0dd; width: 30px'></div></td>
+    </tr>
+</table>
+
+<h4>Conclusion</h4>
+
+<p>As you can see Go implementations of Web application wins in almost all test
+cases. Worse results of <em>web.go</em> framework is probably due to the fact
+that it try find static file for given URL before run handler function. It
+surprised me very high performance of <em>tornado</em> Python framework,
+especially in relation to <em>web.py</em> framework running on to of
+<em>CherryPy</em> server.</p> 
+<p>You can see how good job gorutines do. Probably, there is no reason to write
+<a href='http://en.wikipedia.org/wiki/Epoll'>epoll</a> based asynchronous Web
+server in Go (but it would be interesting to prove this thesis).</p>
+
 </body>
 </html>
