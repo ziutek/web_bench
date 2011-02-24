@@ -98,8 +98,8 @@ packages:</p>
     <li>raw Go <em>http</em> package,</li>
     <li><em>web.go</em> framework (it uses <em>http</em> package to run in
     standalone mode),</li>
-    <li><a href='http://garyburd.github.com/twister/'>twister</a> framework (it
-    also uses <em>http</em> package),
+    <li><a href='http://garyburd.github.com/twister/'>twister</a>
+    framework with its own HTTP server,
 </ul>
 
 <p>and following Python Web servers/frameworks:</p>
@@ -173,7 +173,7 @@ I used <a href='http://www.joedog.org/index/siege-home'>siege</a>
 benchmarking utility. Siege can simulate multiple users using multiple threads.
 I use the following command to generate traffic:</p>
 
-<pre>siege -c 200 -t 20s http://SERVER_ADDR:8080/Hello/100</pre>
+<pre>siege -c 200 -t 20s http://ADDRESS:PORT/Hello/100</pre>
 
 <p>or multiple such commands with properly reduced <em>-c</em> parameter (in
 case when I run multiple Python applications simultaneously). It simulates
@@ -324,7 +324,11 @@ applications).</p>
 <h3>Change log</h3>
 
 <ul>
-    <li>2011-02-24 - Added results for <em>gunicorn</em>+<em>Web.py</em>.</li>
+    <li>2011-02-24 - I added results for <em>gunicorn</em>+<em>Web.py</em>.</li>
+    <li>2011-02-24 - I changed <em>twister</em> description after receiving
+    message from Gary Burd (<em>twister</em> author). <em>Twister</em> doesn't
+    use the http package's server. It has its own HTTP server and uses the Go
+    http package only for URL parsing and formatting.</li>
 </ul>
 
 <h3>Comments</h3>
