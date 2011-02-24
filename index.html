@@ -109,6 +109,8 @@ packages:</p>
     <a href='http://www.cherrypy.org'>CherryPy</a> WSGI server,</li>
     <li><em>web.py</em> framework with
     <a href='http://gunicorn.org/'>gunicorn</a> WSGI server,</li>
+    <li><em>web.py</em> framework with
+    <a href='http://www.gevent.org/'>gevent</a> WSGI server,</li>
     <li><em>web.py</em> framework using
     <a href='http://trac.saddi.com/flup'>flup</a>
     <a href='http://en.wikipedia.org/wiki/FastCGI'>FastCGI</a> to be a
@@ -161,10 +163,9 @@ server) connected using direct GigabitEthernet link.</p>
     kernel: 2.6.33.7.2-rt30-1-686 #1 SMP PREEMPT RT;</li>
     <li><em>Server</em>: MSI Netbook with two core Intel U4100 1.30GHz, AC power
     connected, 64-bit Ubuntu 10.10, kernel: 2.6.35-25-generic #44-Ubuntu SMP,
-    Python 2.6.6-2ubuntu2, web.py 0.34-2, flup 1.0.2-1, tornado 0.2-1, nginx
-    0.7.67-3ubuntu1
-    (<a
-        href='https://github.com/ziutek/web_bench/blob/master/nginx.conf'>config</a>);
+    Python 2.6.6-2ubuntu2, web.py 0.34-2, flup 1.0.2-1, tornado 0.2-1, gunicorn
+    0.10.0-1, gevent 0.13.0-1,  nginx 0.7.67-3ubuntu1
+    (<a href='https://github.com/ziutek/web_bench/blob/master/nginx.conf'>config</a>);
     </li>
 </ul>
 
@@ -208,6 +209,10 @@ compiled using Go release.2011-02-01.1</p>
         <td><div style='background: #dd0; width: 86px'></div></td>
     </tr>
     <tr>
+        <td>Web.py+gevent</td><td>488</td>
+        <td><div style='background: #0ba; width: 49px'></div></td>
+    </tr>
+    <tr>
         <td>Web.py+gunicorn</td><td>266</td>
         <td><div style='background: #0ca; width: 27px'></div></td>
     </tr>
@@ -246,6 +251,10 @@ compiled using Go release.2011-02-01.1</p>
         <td><div style='background: #dd0; width: 138px'></div></td>
     </tr>
     <tr>
+        <td>Web.py+gevent</td><td>906</td>
+        <td><div style='background: #0ba; width: 91px'></div></td>
+    </tr>
+    <tr>
         <td>Web.py+gunicorn</td><td>406</td>
         <td><div style='background: #0ca; width: 41px'></div></td>
     </tr>
@@ -282,6 +291,10 @@ compiled using Go release.2011-02-01.1</p>
     <tr>
         <td>Tornado+nginx</td><td>1364</td>
         <td><div style='background: #dd0; width: 136px'></div></td>
+    </tr>
+    <tr>
+        <td>Web.py+gevent</td><td>888</td>
+        <td><div style='background: #0ba; width: 89px'></div></td>
     </tr>
     <tr>
         <td>Web.py+gunicorn</td><td>538</td>
@@ -329,6 +342,7 @@ applications).</p>
     message from Gary Burd (<em>twister</em> author). <em>Twister</em> doesn't
     use the http package's server. It has its own HTTP server and uses the Go
     http package only for URL parsing and formatting.</li>
+    <li>2011-02-24 - I added results for <em>gevent</em>+<em>Web.py</em>.</li>
 </ul>
 
 <h3>Comments</h3>
