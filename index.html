@@ -221,7 +221,7 @@ compiled using Go release.2011-02-01.1</p>
         <td><div style='background: #0dd; width: 17px'></div></td>
     </tr>
     <tr>
-        <td>Web.py+nginx</td><td>114</td>
+        <td>Web.py+flup+nginx</td><td>114</td>
         <td><div style='background: #0ed; width: 11px'></div></td>
     </tr>
 </table>
@@ -263,7 +263,7 @@ compiled using Go release.2011-02-01.1</p>
         <td><div style='background: #0dd; width: 31px'></div></td>
     </tr>
     <tr>
-        <td>Web.py+nginx</td><td>198</td>
+        <td>Web.py+flup+nginx</td><td>198</td>
         <td><div style='background: #0ed; width: 20px'></div></td>
     </tr>
 </table>
@@ -305,16 +305,16 @@ compiled using Go release.2011-02-01.1</p>
         <td><div style='background: #0dd; width: 30px'></div></td>
     </tr>
     <tr>
-        <td>Web.py+nginx</td><td>211</td>
+        <td>Web.py+flup+nginx</td><td>211</td>
         <td><div style='background: #0ed; width: 21px'></div></td>
     </tr>
 </table>
 
-<p><em>Web.py+nginx</em> has worked with <em>flup</em> <em>FastCGI</em>
-options: <em>multiplexed=False</em>, <em>multithreaded=False</em>.
+<p><em>Web.py+flup+nginx</em> has worked with the following <em>flup</em>
+server options: <em>multiplexed=False</em>, <em>multithreaded=False</em>.
 If <em>multiplexed=True</em> it has worked slightly slower.
-If <em>multithreaded=True</em> and there was only one process running the
-<em>nginx</em> server has reported following errors:<p>
+Setting <em>multithreaded=True</em> doesn't improve performance and when there
+is only one process running the <em>nginx</em> server reports such errors:<p>
 
 <pre>[error] 18166#0: *66139 connect() to unix:/tmp/socket failed (11: Resource
 temporarily unavailable) while connecting to upstream</pre>
@@ -328,9 +328,8 @@ temporarily unavailable) while connecting to upstream</pre>
 <em>web.go</em> framework is probably due to the fact that it try find static
 file for given URL before run a handler function. It surprised me the very high
 performance of <em>tornado</em> framework. I was also surprised, that
-<em>CherryPy</em> server is faster than <em>nginx</em>+<em>flup</em> (I use
-<em>web.py</em>+<em>flup</em>+<em>nginx</em> for almost all my Python Web
-applications).</p> 
+<em>CherryPy</em> server is faster than <em>nginx+flup</em> (I use
+<em>web.py+flup+nginx</em> for almost all my Python Web applications).</p> 
 
 <h3>Change log</h3>
 
@@ -348,8 +347,8 @@ applications).</p>
 <ul>
     <li>2011-02-24 - <em>Nginx</em> <em>FastCGI</em> results are very bad. I
     try <em>web.go</em> in <em>FastCGI</em> mode and results are similar to
-    <em>Web.py</em>+<em>flup</em>+<em>nginx</em>. I was looking for a problem
-    in my nginx configuration, searched google but I didn't found anything.
+    <em>Web.py</em>+flup+nginx</em>. I was looking for a problem
+in my <em>nginx</em> configuration, searched google but I didn't found anything.
     I will be grateful if someone can help in this problem, or can confirm
     these results.</li>
 </ul>
