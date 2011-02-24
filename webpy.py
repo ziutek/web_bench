@@ -15,19 +15,20 @@ class ServeHTTP(object):
 web.config.debug = False
 urls = ("^/([^/]+)/([^/]+)$", "ServeHTTP")
 app = web.application(urls, globals())
+wsgifunc = app.wsgifunc()
 
 if __name__ == "__main__":
     if len(argv) > 1 :
         from web.wsgiserver import CherryPyWSGIServer
         server = CherryPyWSGIServer(("0.0.0.0", int(argv[1])),
-                                    app.wsgifunc(), request_queue_size=20)
+                                    wsgifunc, request_queue_size=40)
         try:
             server.start()
         except KeyboardInterrupt:
             server.stop()
     else:
         from flup.server.fcgi import WSGIServer
-        server = WSGIServer(app.wsgifunc(), bindAddress=None,
+        server = WSGIServer(wsgifunc, bindAddress=None,
                             multiplexed=False, multithreaded=False)
         server.run()
         #web.wsgi.runwsgi = lambda func, addr=None: web.wsgi.runfcgi(func, addr)
