@@ -107,6 +107,8 @@ packages:</p>
 <ul>
     <li><a href='http://webpy.org/'>web.py</a> framework with
     <a href='http://www.cherrypy.org'>CherryPy</a> WSGI server,</li>
+    <li><em>web.py</em> framework with
+    <a href='http://gunicorn.org/'>gunicorn</a> WSGI server,</li>
     <li><em>web.py</em> framework using
     <a href='http://trac.saddi.com/flup'>flup</a>
     <a href='http://en.wikipedia.org/wiki/FastCGI'>FastCGI</a> to be a
@@ -160,7 +162,9 @@ server) connected using direct GigabitEthernet link.</p>
     <li><em>Server</em>: MSI Netbook with two core Intel U4100 1.30GHz, AC power
     connected, 64-bit Ubuntu 10.10, kernel: 2.6.35-25-generic #44-Ubuntu SMP,
     Python 2.6.6-2ubuntu2, web.py 0.34-2, flup 1.0.2-1, tornado 0.2-1, nginx
-    0.7.67-3ubuntu1;
+    0.7.67-3ubuntu1
+    (<a
+        href='https://github.com/ziutek/web_bench/blob/master/nginx.conf'>config</a>);
     </li>
 </ul>
 
@@ -204,6 +208,10 @@ compiled using Go release.2011-02-01.1</p>
         <td><div style='background: #dd0; width: 86px'></div></td>
     </tr>
     <tr>
+        <td>Web.py+gunicorn</td><td>266</td>
+        <td><div style='background: #0ca; width: 27px'></div></td>
+    </tr>
+    <tr>
         <td>Web.py+CheryPy</td><td>169</td>
         <td><div style='background: #0dc; width: 17px'></div></td>
     </tr>
@@ -236,6 +244,10 @@ compiled using Go release.2011-02-01.1</p>
     <tr>
         <td>Tornado+nginx</td><td>1378</td>
         <td><div style='background: #dd0; width: 138px'></div></td>
+    </tr>
+    <tr>
+        <td>Web.py+gunicorn</td><td>406</td>
+        <td><div style='background: #0ca; width: 41px'></div></td>
     </tr>
     <tr>
         <td>Web.py+CheryPy</td><td>308</td>
@@ -271,6 +283,10 @@ compiled using Go release.2011-02-01.1</p>
         <td>Tornado+nginx</td><td>1364</td>
         <td><div style='background: #dd0; width: 136px'></div></td>
     </tr>
+    <tr>
+        <td>Web.py+gunicorn</td><td>538</td>
+        <td><div style='background: #0ca; width: 54px'></div></td>
+    </tr>    
     <tr>
         <td>Web.py+CheryPy</td><td>304</td>
         <td><div style='background: #0dc; width: 30px'></div></td>
