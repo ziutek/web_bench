@@ -18,14 +18,23 @@ app = web.application(urls, globals())
 wsgifunc = app.wsgifunc()
 
 if __name__ == "__main__":
-    if len(argv) > 1 :
-        from web.wsgiserver import CherryPyWSGIServer
-        server = CherryPyWSGIServer(("0.0.0.0", int(argv[1])),
-                                    wsgifunc, request_queue_size=40)
-        try:
-            server.start()
-        except KeyboardInterrupt:
-            server.stop()
+    if len(argv) > 2:
+        sname = argv[1]
+        port = int(argv[2])
+        if sname == "cherrypy":
+            from web.wsgiserver import CherryPyWSGIServer as WSGIServer
+            server = WSGIServer(("0.0.0.0", port), wsgifunc,
+                                request_queue_size=40)
+            try:
+                server.start()
+            except KeyboardInterrupt:
+                server.stop()
+        elif sname == "gevent":
+            from gevent.wsgi import WSGIServer
+            server = WSGIServer(("0.0.0.0", port), wsgifunc, log=None)
+            server.serve_forever()
+        else:
+            print "Unknown server"
     else:
         from flup.server.fcgi import WSGIServer
         server = WSGIServer(wsgifunc, bindAddress=None,
