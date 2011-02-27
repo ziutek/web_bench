@@ -8,8 +8,8 @@ import (
 )
 
 func ServeHTTP(req *web.Request) {
-    s := req.Param.GetDef("txt", "")
-    ni, _ := strconv.Atoi(req.Param.GetDef("num", ""))
+    s := req.Param.Get("txt")
+    ni, _ := strconv.Atoi(req.Param.Get("num"))
     wr := req.Respond(web.StatusOK)
     for i := 0; i < ni; i++ {
         fmt.Fprintf(wr, "%d: %s\n", i, s)
